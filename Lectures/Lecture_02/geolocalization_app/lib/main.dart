@@ -25,6 +25,24 @@ class GeolocalizationApp extends StatelessWidget {
   }
 }
 
+class DrawerNavigationScreen extends StatelessWidget {
+  const DrawerNavigationScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Drawer Navigation'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      drawer: Drawer(
+        child:
+      ),
+      body: const LocationScreen(),
+    );
+  }
+}
+
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
 
