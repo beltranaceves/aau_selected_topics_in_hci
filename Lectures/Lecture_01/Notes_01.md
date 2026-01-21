@@ -88,4 +88,152 @@
 
 # Location and Networks
 - RF spectrum is a precious shared resource, need for efficient usage through multiplexing
-- 
+- Time-division multiple access (TDMA)
+  - Static timeslots, requires synchronization in advance
+  - Dynamics: carrier-sense multiple access/collision avoidance (CSMA/CA)
+    - Listen if channel idle, then transmit
+    - (Optional) request to send/clear to send (RTS/CTS)
+    - Transmit and wait for ACK
+- Frequency-division multiple access (FDMA)
+  - Split msg into multiple freqs, single freq as the simplest case
+  - WDMA (wavelength) for optical
+  - OFDMA as complex variant
+- Code-division multiple access (CDMA)
+  - Spead-spectrum method (transmits across the spectrum)
+  - "Encoding-based"
+![](https://github.com/user-attachments/assets/a046e3b5-46c3-4104-9a2c-86a267a9eaeb)
+- OSI Model
+- Physical/Data Link/Network/Transport/Session/Presentation/Application/User
+- Bluetooth
+  - WPAN
+  - Complex across all stack layers
+  - 2.4 Ghz ISM, 3Mbig/s
+  - 80 channels @ 1MHz or 40 channels @ 2 Mhz
+  - Frequency hopping
+  - Requires pairing, more stable
+- Bluetooth low energy
+  - Simpler
+  - Send and forget
+- WiFi
+  - WLAN
+  - 2.4/5 GHz ISM band, up to 10GBit
+  - At physical layer: modulation and channel access (most data)
+  - At data link layer: announcement of SSID, roaming between PAs, encryption/auth
+  - Topologies:
+    - Tree/Star (normal)
+    - P2P with WiFi Direct
+  - WWAN
+    - 1/2/3/4/5G
+  - Location
+    - Network-based
+    - Satellite-based
+    - Types:
+      - Geographic (latitude, longitude)
+      - Topological (street address)
+      - Cell-based (ID of network cell connected)
+      - Mappings:
+        - Topological -> Geographic: Geocoding
+          - Graph database with coordinates
+        - Geographic -> Topological: Reverse geocoding
+          - Spatial index database
+        - Cell ID -> Geographical/Topological
+          - Required a separate DB positioning each Cell
+      - Methods:
+        - Satellites. Very accurate (1m), high power draw, only works outside
+        - WLAN cells. Low power draw, 10m res
+        - Cell tower. No additional power draw, inaccurate (100-1000m)
+        - ![](https://github.com/user-attachments/assets/95c32a67-08a0-4331-bbcb-87ab5063ef59)
+      - GPS
+        - GPS, GLONASS, Galileo, BeiDou
+        - TOF and TDOF (no precision clock in receiver device)
+        - Triangulation of signals. At least 4 visible satellites for position fix
+        - Multiple coordinate systems: World vs China
+
+# I/O in small screens
+- Touch
+  - No haptic feedback
+  - Occlusion
+  - Precision
+  - No "hover" state
+  - Reachability
+  - Haptic Feedback
+    - Phorms overlay
+    - Tactile touchscreen using electrovibration. Ridges/resistance but only single-touch
+  - Occlusion
+    - Use geometric model of user's hand/arm to rearrange UI elements, reject touches
+    - Back-of-device interaction
+    - ![](https://github.com/user-attachments/assets/aa7aa0e0-d6f2-4741-a39b-1617ba9c08a9)
+  -  Precision
+    - Perceived Input Model
+    - Offset Cursor (handles)
+    - Shift (lens)
+    - 100 000 000 Taps (map of tapping frequency by region)
+    - Keyboards
+      - Word prediction
+      - Swiping
+      - Custom layouts (single line)
+  - Reachability
+    - One-handed mode
+  - Hover State
+    - lift-off strategy
+    - Pre-Touch sensing (also squeeze screen)
+  - Overall vs mouse:
+    - Less precision
+    - More occlusion
+    - No hover state
+    - No haptic feedback
+    - Needs new strategies and UIs vs desktop
+  - Motion
+    - Input
+      - Motion of device: IMU
+      - Motion of user: EMG, camera-based, GPS?
+    - Output
+      - Vibration alerts
+      - Moving the user
+      - Shaping the phone
+    - IMU
+      - Accelerometer
+        - 3DOF
+      - Magnetometer
+        - North
+        - Distorted by environment
+      - Gyroscope
+        - Rate of turn
+    - Combine with GPS for 6 DOF pose
+    - High power consumption
+    - Can be used to estimate position relative to starting point (dead reckoning)
+    - MEMS: Micro ElectroMechanical Systems
+      - Force on spring weight -> Acceleration
+      - Lateral force on vibrating weight -> Rotation
+      - Hall effect current -> Magnetic field
+      - Calibration with figure eight
+    - Add-ons/peripherals
+      - Wearable controllers
+      - Electromyography sensors
+      - Air gestures (camera-based)
+      - Device bumping
+      - Plane deformation
+    - Moving the user
+      - Muscle-propelled force feedback
+      - Galvanic Vestibular Stimulation
+  - Screens
+    - Output:
+      - LCD: backlight, requires filters per color
+      - AMOLED: per pixel activation and color, less bright and more expensive
+      - E-ink: requires power only when changing state, high contrast in sunlight, no backlight
+    - Input:
+      - Camera: CCD/CMOS/APS
+      - Greyscale, uses bayer color filter (RGB, 2x green pixels to mimic human eye sensitivity)
+      - Barcodes: EAN and QR, QR better with error correction, more data.
+      - OCR: complex problem, cloud compute
+      - SLAM: Inside-out vs Outisde in
+      - Object detection: CNN-based, offline and online phases
+  - Other channels
+    - hand/body stance
+    - grasp
+    - facial expression
+    - eye tracking
+    - heart rate/ECG
+    - sound input (not speech)
+       
+  
