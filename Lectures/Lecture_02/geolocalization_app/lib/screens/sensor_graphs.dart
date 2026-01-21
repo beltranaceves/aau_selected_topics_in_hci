@@ -31,16 +31,16 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
   final Queue<FlSpot> _magnetoYData = Queue<FlSpot>();
   final Queue<FlSpot> _magnetoZData = Queue<FlSpot>();
   
-  final Queue<FlSpot> _barometerData = Queue<FlSpot>();
-  
-  double _timeCounter = 0;
-  final int _maxDataPoints = 100;
+  late DateTime _startTime;
+  int _dataPointIndex = 0;
+  final int _maxDataPoints = 2000;
   
   Duration sensorInterval = SensorInterval.normalInterval;
 
   @override
   void initState() {
     super.initState();
+    _startTime = DateTime.now();
     _initializeSensorStreams();
   }
 
@@ -59,7 +59,6 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
             _addDataPoint(_userAccelXData, event.x);
             _addDataPoint(_userAccelYData, event.y);
             _addDataPoint(_userAccelZData, event.z);
-            _timeCounter += 0.1; // Increment time
           });
         },
         onError: (e) => print('User Accelerometer error: $e'),
@@ -111,23 +110,11 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
         cancelOnError: true,
       ),
     );
-
-    // Barometer
-    _streamSubscriptions.add(
-      barometerEventStream(samplingPeriod: sensorInterval).listen(
-        (BarometerEvent event) {
-          setState(() {
-            _addDataPoint(_barometerData, event.pressure);
-          });
-        },
-        onError: (e) => print('Barometer error: $e'),
-        cancelOnError: true,
-      ),
-    );
   }
 
   void _addDataPoint(Queue<FlSpot> dataQueue, double value) {
-    dataQueue.add(FlSpot(_timeCounter, value));
+    dataQueue.add(FlSpot(_dataPointIndex.toDouble(), value));
+    _dataPointIndex++;
     if (dataQueue.length > _maxDataPoints) {
       dataQueue.removeFirst();
     }
@@ -195,16 +182,6 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildLegendItem('X', Colors.red),
-              const SizedBox(width: 16),
-              _buildLegendItem('Y', Colors.green),
-              const SizedBox(width: 16),
-              _buildLegendItem('Z', Colors.blue),
-            ],
-          ),
         ],
       ),
     );
@@ -223,28 +200,6 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
             child: LineChart(
               LineChartData(
                 gridData: const FlGridData(show: true),
-                titlesData: FlTitlesData(
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 40,
-                      getTitlesWidget: (value, meta) {
-                        return Text(value.toStringAsFixed(1), style: const TextStyle(fontSize: 10));
-                      },
-                    ),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 20,
-                      getTitlesWidget: (value, meta) {
-                        return Text(value.toStringAsFixed(0), style: const TextStyle(fontSize: 10));
-                      },
-                    ),
-                  ),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                ),
                 borderData: FlBorderData(show: true),
                 lineBarsData: [
                   LineChartBarData(
@@ -300,8 +255,6 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
                 _magnetoXData.clear();
                 _magnetoYData.clear();
                 _magnetoZData.clear();
-                _barometerData.clear();
-                _timeCounter = 0;
               });
             },
             tooltip: 'Clear Data',
@@ -318,8 +271,6 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
             _buildChart('Gyroscope', _gyroXData, _gyroYData, _gyroZData),
             const Divider(),
             _buildChart('Magnetometer', _magnetoXData, _magnetoYData, _magnetoZData),
-            const Divider(),
-            _buildSingleChart('Barometer (hPa)', _barometerData, Colors.purple),
             const SizedBox(height: 20),
             // Sensor interval controls
             Padding(
