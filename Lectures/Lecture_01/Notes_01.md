@@ -1,1 +1,91 @@
+# Mobile Information Systems
+- Chapter covers the main challenges and issues of MIS
+- Limited power supply
+  - Trade between capacity and size/weight/portability
+  - Energy consumption becomes one of the main limiting factors of the device
+  - Solutions
+    - Increase energy density, which requires chemistry/physics knowledge
+    - Decrease consumption by optimisation
+  - Biggest energy consumers:
+    - Display (mostly its backlight)
+    - GPS receiver, camera
+    - Wireless modules (3/4/5G, WiFi, Bluetooth). Energy consumption increases with bandwidth/speed/payload, 5G >> 3G
+    - Sensors (touchscreen, accelerometer/IMU)
+  - Energy saving techniques:
+    - Disable unused subdevices
+    - Lower polling frequency
+    - Move heavy computations to cloud services
+- Limited storage
+  - 8Gb (more like 32Gb) on entry-level devices
+  - Data partially stored in cloud services to compensate
+    - Requires network connection Up/Down/Sync
+    - Tradeoff storage/bandwidth/energy consumption
+  - Flash memory
+    - Tradeoff between price/size/capacity/longevity
+- Wireless communication channels
+  - Basics:
+    - Communication with electromagnetic waves, mostly freq between 0.5 and 5 GHz, no line-of-sight required
+    - Channel capacity/throughput depends on:
+      - Channel bandwidth
+      - Modulation method
+    - Channel sharing (time, freq slots). Requires arbritration to avoid collisions
+    - Signal-to-noise ratio
+    - Antennas, ideal omnidirectional does not exist, construct it from multiple ones
+    - Negative effects
+      - Refraction
+      - Reflection
+      - Absorption
+      - Diffraction
+      - Interference
+      - Multipath scattering
+    - Wireless basics:
+      - WLAN (wifi?)
+      - WPAN (bluetooth)
+      - WiGig (60Ghz, high throughput, LOS required)
+      - WWAN (2G GSM, 3G UMTS, 4/5G LTE)
+      - Mesh networks
+      - ISM
+- Limited/different IO capabilities
+  - Small screens, no physical keyboard
+  - Low precision and speed
+  - Less room for data
+  - Use other channels (touch, gestures, motion, camera, location, vibration, sound, speech)
+  - Touch
+    - No haptic feedback (Phorm)
+    - Occlusion
+    - Precision
+    - No hover state (Midas touch problem)
+  - Gestures
+    - Difficult discoverability and no standards (cultural differences)
+  - Speech
+  - Motion
+    - Vibration alerts (binary channel, sometimes with patterns)
+    - Motion as input:
+      - Accelerometer, IMU
+      - Only relative position, not accurate (3 vs 6 DOF)
+      - Needs combination with GPS, marker tracking
+      - Sensitive to interference
+      - Use secondary device, smartwatch?
+    - Vision
+      - As input:
+        - Barcodes, QR codes, OCR, SLAM
+        - Difficult and expensive
+      - As output:
+        - Size/resolution: very high information density
+        - Brightness/contrast important depending on technology used
+- Unpredictable usage context
+  - Environment
+  - Location/position
+  - Social context
+  - Activity context
+  - Recognition VERY difficult
+- Privacy and security
+  - Huge amounts of private and personal data on MIS: contacts, messages, emails, search history, pictures
+  - Profitable data for big corpos
+  - No pervasive encryption (DK chat control!)
+- Sustainability
+  - Short device lifecycle, even worse software updates, use of open-source alternatives, right to repair, repairable products
 
+# Location and Networks
+- RF spectrum is a precious shared resource, need for efficient usage through multiplexing
+- 
