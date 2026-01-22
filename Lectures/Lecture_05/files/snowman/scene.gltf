@@ -1,0 +1,339 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 4073,
+      "max": [
+        0.950891375541687,
+        3.7580065727233887,
+        1.6071321964263916
+      ],
+      "min": [
+        -1.2354140281677246,
+        0.007508599199354649,
+        -1.6415828466415405
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 48876,
+      "componentType": 5126,
+      "count": 4073,
+      "max": [
+        0.9999966025352478,
+        0.9997813701629639,
+        0.9998878240585327
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 4073,
+      "max": [
+        0.9892709851264954,
+        0.9950000047683716
+      ],
+      "min": [
+        0.010728999972343445,
+        0.004999999888241291
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 19548,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 97752,
+      "componentType": 5126,
+      "count": 588,
+      "max": [
+        0.6779530048370361,
+        4.617002964019775,
+        0.8205900192260742
+      ],
+      "min": [
+        -0.7358520030975342,
+        3.5699400901794434,
+        -0.5873550176620483
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 104808,
+      "componentType": 5126,
+      "count": 588,
+      "max": [
+        0.9814786314964294,
+        0.9967703223228455,
+        0.9762406945228577
+      ],
+      "min": [
+        -0.9776514172554016,
+        -0.9963012933731079,
+        -0.9853271245956421
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 32584,
+      "componentType": 5126,
+      "count": 588,
+      "max": [
+        0.9950000047683716,
+        0.9932299852371216
+      ],
+      "min": [
+        0.004999999888241291,
+        0.006769999861717224
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 78192,
+      "componentType": 5125,
+      "count": 858,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Junaid Amin (https://sketchfab.com/junaidamin)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/snowman-1010d971cfe44b1aa8ff9b8350048f95",
+      "title": "Snowman"
+    },
+    "generator": "Sketchfab-14.35.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 81624,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 37288,
+      "byteOffset": 81624,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 111864,
+      "byteOffset": 118912,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 230776,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/snowmansnowmanmat1_baseColor.png"
+    },
+    {
+      "uri": "textures/snowmanhatsnowmanhatmat1_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "snowmansnowmanmat1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.6
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "snowmanhatsnowmanhatmat1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.6
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "snowman:snowmanmesh_snowman:snowmanmat1_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "snowmanhat:snowmanhatmesh_snowmanhat:snowmanhatmat1_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "e7c61db2ae844ff0ab3cdabd6ae72cb1.fbx"
+    },
+    {
+      "children": [
+        3,
+        5
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "snowman:snowmanmesh"
+    },
+    {
+      "mesh": 0,
+      "name": "snowman:snowmanmesh_snowman:snowmanmat1_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -0.0009773430647328496,
+        -0.07449520379304886,
+        -0.0006598591571673751,
+        1.0
+      ],
+      "name": "snowmanhat:snowmanhatmesh"
+    },
+    {
+      "mesh": 1,
+      "name": "snowmanhat:snowmanhatmesh_snowmanhat:snowmanhatmat1_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ]
+}
