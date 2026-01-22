@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/geolocation.dart'; //
 import 'screens/IMU.dart';
+import 'screens/ble_emoji_broadcaster.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,6 +78,15 @@ class NavigationScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const IMUPage(title: "IMU Demo page")),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Exercise 04 - BLE Emoji Broadcaster'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BLEEmojiBroadcasterPage()),
                 );
               },
             ),

@@ -31,7 +31,6 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
   final Queue<FlSpot> _magnetoYData = Queue<FlSpot>();
   final Queue<FlSpot> _magnetoZData = Queue<FlSpot>();
   
-  late DateTime _startTime;
   int _dataPointIndex = 0;
   final int _maxDataPoints = 2000;
   
@@ -40,7 +39,6 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
   @override
   void initState() {
     super.initState();
-    _startTime = DateTime.now();
     _initializeSensorStreams();
   }
 
@@ -185,52 +183,7 @@ class _SensorGraphsPageState extends State<SensorGraphsPage> {
         ],
       ),
     );
-  }
-
-  Widget _buildSingleChart(String title, Queue<FlSpot> data, Color color) {
-    return Container(
-      height: 200,
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          Expanded(
-            child: LineChart(
-              LineChartData(
-                gridData: const FlGridData(show: true),
-                borderData: FlBorderData(show: true),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: data.toList(),
-                    isCurved: false,
-                    color: color,
-                    barWidth: 2,
-                    dotData: const FlDotData(show: false),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLegendItem(String label, Color color) {
-    return Row(
-      children: [
-        Container(
-          width: 16,
-          height: 2,
-          color: color,
-        ),
-        const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 12)),
-      ],
-    );
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {

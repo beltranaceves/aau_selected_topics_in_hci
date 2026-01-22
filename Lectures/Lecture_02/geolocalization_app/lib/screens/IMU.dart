@@ -6,7 +6,6 @@
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -60,7 +59,6 @@ class _IMUPageState extends State<IMUPage> {
   final Queue<FlSpot> _magXData = Queue();
   final Queue<FlSpot> _magYData = Queue();
   final Queue<FlSpot> _magZData = Queue();
-  final Queue<FlSpot> _pressureData = Queue();
 
   late DateTime _startTime;
 
