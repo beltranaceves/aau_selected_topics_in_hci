@@ -7,6 +7,63 @@
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
     <!-- script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script -->
     <script>
+      AFRAME.registerComponent('ar-hit-test', {
+        schema: {target: {type: 'selector'}},
+        init() {
+          const sceneEl = this.el;
+          const objectsContainer = this.data.target;
+          let hitTestSource = null;
+          let hitTestSourceRequested = false;
+
+          sceneEl.addEventListener('enter-vr', async (event) => {
+            if (!hitTestSourceRequested) {
+              const session = sceneEl.xrSession;
+              if (session && session.requestHitTestSource) {
+                const space = await session.requestReferenceSpace('viewer');
+                hitTestSource = await session.requestHitTestSource({ space });
+                hitTestSourceRequested = true;
+              }
+            }
+          });
+
+          sceneEl.addEventListener('exit-vr', () => {
+            hitTestSource = null;
+            hitTestSourceRequested = false;
+          });
+
+          window.addEventListener('click', () => spawnOnHit());
+          window.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            spawnOnHit();
+          });
+
+          const spawnOnHit = () => {
+            const frame = sceneEl.renderer.xr.getFrame?.();
+            if (!frame || !hitTestSource) return;
+
+            const hitTestResults = frame.getHitTestResults(hitTestSource);
+            if (hitTestResults.length > 0) {
+              const hit = hitTestResults[0];
+              const pose = hit.getPose(frame.referenceSpace);
+
+              if (pose) {
+                const newElf = document.createElement('a-entity');
+                newElf.setAttribute('gltf-model', './files/elf/scene.gltf');
+                
+                // Use the hit test position
+                const position = pose.transform.position;
+                newElf.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
+                newElf.setAttribute('scale', '0.0002 0.0002 0.0002');
+                newElf.setAttribute('shadow', 'cast: true; receive: true;');
+                
+                objectsContainer.appendChild(newElf);
+              }
+            }
+          };
+        }
+      });
+
+      // Legacy follow-shadow component
       AFRAME.registerComponent('follow-shadow', {
         schema: {type: 'selector'},
         init() {this.el.object3D.renderOrder = -1;},
@@ -16,80 +73,6 @@
             this.el.object3D.position.y-=0.001; // stop z-fighting
           }
         }
-      });
-
-      // Spawn elf on click
-      document.addEventListener('DOMContentLoaded', () => {
-        const scene = document.querySelector('a-scene');
-        const objectsContainer = document.getElementById('objects');
-        const camera = document.querySelector('a-camera');
-
-        function getIntersectionPoint(event) {
-          const canvas = scene.canvas;
-          let clientX, clientY;
-
-          if (event.touches) {
-            clientX = event.touches[0].clientX;
-            clientY = event.touches[0].clientY;
-          } else {
-            clientX = event.clientX;
-            clientY = event.clientY;
-          }
-
-          // Get the THREE scene and camera
-          const threeScene = scene.object3D;
-          const threeCamera = camera.getObject3D('camera');
-
-          // Normalize to -1 to 1
-          const x = (clientX / canvas.clientWidth) * 2 - 1;
-          const y = -(clientY / canvas.clientHeight) * 2 + 1;
-
-          // Raycaster
-          const raycaster = new THREE.Raycaster();
-          raycaster.setFromCamera(new THREE.Vector2(x, y), threeCamera);
-
-          // Ground plane (y = 0)
-          const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-          const intersection = new THREE.Vector3();
-          raycaster.ray.intersectPlane(plane, intersection);
-
-          return intersection;
-        }
-
-        function spawnElf(event) {
-          try {
-            // Only spawn if we're in AR mode
-            if (!scene.is('ar-mode')) {
-              return;
-            }
-
-            const intersection = getIntersectionPoint(event);
-            
-            const newElf = document.createElement('a-entity');
-            newElf.setAttribute('gltf-model', './files/elf/scene.gltf');
-            newElf.setAttribute('position', `${intersection.x} 0 ${intersection.z}`);
-            newElf.setAttribute('scale', '0.0002 0.0002 0.0002');
-            newElf.setAttribute('shadow', 'cast: true; receive: true;');
-            
-            objectsContainer.appendChild(newElf);
-          } catch (e) {
-            console.error('Error spawning elf:', e);
-          }
-        }
-
-        // Listen on the canvas and document for both mouse and touch
-        scene.addEventListener('loaded', () => {
-          if (scene.canvas) {
-            scene.canvas.addEventListener('click', spawnElf);
-          }
-        });
-        document.addEventListener('touchstart', (event) => {
-          // Only prevent default if we're in AR mode
-          if (scene.is('ar-mode')) {
-            event.preventDefault();
-          }
-          spawnElf(event);
-        }, false);
       });
     </script>
   </head>
