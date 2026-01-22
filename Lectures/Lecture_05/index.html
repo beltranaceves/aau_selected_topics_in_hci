@@ -7,80 +7,32 @@
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
     <!-- script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script -->
     <script>
-      AFRAME.registerComponent('ar-hit-test', {
-        schema: {target: {type: 'selector'}},
-        init() {
-          const sceneEl = this.el;
-          const objectsContainer = this.data.target;
-          let hitTestSource = null;
-          let lastHitPoint = null;
+      // Spawn elves on click/touch
+      document.addEventListener('DOMContentLoaded', () => {
+        const sceneEl = document.querySelector('a-scene');
+        const objectsContainer = document.getElementById('objects');
 
-          sceneEl.addEventListener('enter-vr', async (event) => {
-            try {
-              const session = sceneEl.xrSession;
-              if (session && session.requestHitTestSource) {
-                const space = await session.requestReferenceSpace('viewer');
-                hitTestSource = await session.requestHitTestSource({ space });
-              }
-            } catch (e) {
-              console.error('AR hit test setup failed:', e);
-            }
-          });
+        const spawnElf = () => {
+          const newElf = document.createElement('a-entity');
+          newElf.setAttribute('gltf-model', './files/elf/scene.gltf');
+          
+          // Random position
+          const x = (Math.random() - 0.5) * 2;
+          const z = (Math.random() - 0.5) * 2 - 1;
+          
+          newElf.setAttribute('position', `${x} 0 ${z}`);
+          newElf.setAttribute('scale', '0.0002 0.0002 0.0002');
+          newElf.setAttribute('shadow', 'cast: true; receive: true;');
+          
+          objectsContainer.appendChild(newElf);
+          console.log('Elf spawned at', x, z);
+        };
 
-          // Track hit test results each frame
-          sceneEl.addEventListener('renderstart', () => {
-            sceneEl.renderer.xr.addEventListener('sessionstart', () => {
-              const updateHitTestResults = () => {
-                if (!sceneEl.xrSession || !hitTestSource) {
-                  requestAnimationFrame(updateHitTestResults);
-                  return;
-                }
-
-                sceneEl.xrSession.requestAnimationFrame((frame, session) => {
-                  const results = frame.getHitTestResults(hitTestSource);
-                  if (results.length > 0) {
-                    const pose = results[0].getPose(frame.referenceSpace);
-                    if (pose) {
-                      lastHitPoint = pose.transform.position;
-                    }
-                  }
-                });
-
-                requestAnimationFrame(updateHitTestResults);
-              };
-
-              updateHitTestResults();
-            });
-          });
-
-          sceneEl.addEventListener('exit-vr', () => {
-            hitTestSource = null;
-            lastHitPoint = null;
-          });
-
-          // Spawn on click/touch
-          const spawnElf = () => {
-            if (!sceneEl.is('ar-mode') || !lastHitPoint) {
-              return;
-            }
-
-            const newElf = document.createElement('a-entity');
-            newElf.setAttribute('gltf-model', './files/elf/scene.gltf');
-            newElf.setAttribute('position', `${lastHitPoint.x} ${lastHitPoint.y} ${lastHitPoint.z}`);
-            newElf.setAttribute('scale', '0.0002 0.0002 0.0002');
-            newElf.setAttribute('shadow', 'cast: true; receive: true;');
-            
-            objectsContainer.appendChild(newElf);
-          };
-
-          window.addEventListener('click', spawnElf);
-          window.addEventListener('touchstart', (e) => {
-            if (sceneEl.is('ar-mode')) {
-              e.preventDefault();
-            }
-            spawnElf();
-          }, false);
-        }
+        window.addEventListener('click', spawnElf);
+        window.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          spawnElf();
+        }, false);
       });
 
       // Legacy follow-shadow component
@@ -99,7 +51,6 @@
   <body>
     <a-scene
       reflection="directionalLight: a-light[type=directional]"
-      ar-hit-test="target: #objects;"
       renderer="colorManagement: true; exposure: 1; toneMapping: ACESFilmic; xrCompatible: true"
       shadow="type: pcfsoft"
       xr-mode-ui="XRMode: xr"
