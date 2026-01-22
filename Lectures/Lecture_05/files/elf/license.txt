@@ -1,0 +1,11 @@
+Model Information:
+* title:	Christmas Elf
+* source:	https://sketchfab.com/3d-models/christmas-elf-9589ccefe735448f924ddbfef36e1d65
+* author:	Horton (https://sketchfab.com/Horton)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Christmas Elf" (https://sketchfab.com/3d-models/christmas-elf-9589ccefe735448f924ddbfef36e1d65) by Horton (https://sketchfab.com/Horton) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
