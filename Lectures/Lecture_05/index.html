@@ -28,11 +28,19 @@
           console.log('Elf spawned at', x, z);
         };
 
-        window.addEventListener('click', spawnElf);
-        window.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          spawnElf();
-        }, false);
+        sceneEl.addEventListener('loaded', () => {
+          const canvas = sceneEl.canvas;
+          if (canvas) {
+            canvas.addEventListener('click', (e) => {
+              e.preventDefault();
+              spawnElf();
+            });
+            canvas.addEventListener('touchstart', (e) => {
+              e.preventDefault();
+              spawnElf();
+            });
+          }
+        });
       });
 
       // Legacy follow-shadow component
