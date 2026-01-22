@@ -57,19 +57,28 @@
         }
 
         function spawnElf(event) {
-          const intersection = getIntersectionPoint(event);
-          
-          const newElf = document.createElement('a-entity');
-          newElf.setAttribute('gltf-model', './files/elf/scene.gltf');
-          newElf.setAttribute('position', `${intersection.x} 0 ${intersection.z}`);
-          newElf.setAttribute('scale', '0.0002 0.0002 0.0002');
-          newElf.setAttribute('shadow', 'cast: true; receive: true;');
-          
-          objectsContainer.appendChild(newElf);
+          try {
+            const intersection = getIntersectionPoint(event);
+            
+            const newElf = document.createElement('a-entity');
+            newElf.setAttribute('gltf-model', './files/elf/scene.gltf');
+            newElf.setAttribute('position', `${intersection.x} 0 ${intersection.z}`);
+            newElf.setAttribute('scale', '0.0002 0.0002 0.0002');
+            newElf.setAttribute('shadow', 'cast: true; receive: true;');
+            
+            objectsContainer.appendChild(newElf);
+          } catch (e) {
+            console.error('Error spawning elf:', e);
+          }
         }
 
-        scene.addEventListener('click', spawnElf);
-        scene.addEventListener('touchstart', spawnElf);
+        // Listen on the canvas and document for both mouse and touch
+        scene.canvas.addEventListener('click', spawnElf);
+        document.addEventListener('touchstart', (event) => {
+          // Prevent default to avoid page scroll on mobile
+          event.preventDefault();
+          spawnElf(event);
+        }, false);
       });
     </script>
   </head>
