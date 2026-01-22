@@ -58,6 +58,11 @@
 
         function spawnElf(event) {
           try {
+            // Only spawn if we're in AR mode
+            if (!scene.is('ar-mode')) {
+              return;
+            }
+
             const intersection = getIntersectionPoint(event);
             
             const newElf = document.createElement('a-entity');
@@ -79,8 +84,10 @@
           }
         });
         document.addEventListener('touchstart', (event) => {
-          // Prevent default to avoid page scroll on mobile
-          event.preventDefault();
+          // Only prevent default if we're in AR mode
+          if (scene.is('ar-mode')) {
+            event.preventDefault();
+          }
           spawnElf(event);
         }, false);
       });
